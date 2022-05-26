@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50736
+ Source Server Version : 80025
  Source Host           : localhost:3306
  Source Schema         : oauth2_1
 
  Target Server Type    : MySQL
- Target Server Version : 50736
+ Target Server Version : 80025
  File Encoding         : 65001
 
- Date: 26/05/2022 15:17:16
+ Date: 26/05/2022 18:45:56
 */
 
 SET NAMES utf8mb4;
@@ -24,9 +24,9 @@ DROP TABLE IF EXISTS `oauth2_registered_client`;
 CREATE TABLE `oauth2_registered_client`  (
   `id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `client_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `client_id_issued_at` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+  `client_id_issued_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `client_secret` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `client_secret_expires_at` timestamp(0) NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `client_secret_expires_at` timestamp NULL DEFAULT NULL,
   `client_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `client_authentication_methods` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `authorization_grant_types` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
