@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
+import org.springframework.security.oauth2.server.authorization.config.ConfigurationSettingNames;
 import org.springframework.security.oauth2.server.authorization.jackson2.OAuth2AuthorizationServerJackson2Module;
 
 import java.util.HashMap;
@@ -23,6 +24,22 @@ import java.util.UUID;
  */
 @Slf4j
 class ObjectMapperTests {
+
+    @Test
+    void map() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        ClassLoader classLoader = JdbcRegisteredClientRepository.class.getClassLoader();
+        List<Module> securityModules = SecurityJackson2Modules.getModules(classLoader);
+        objectMapper.registerModules(securityModules);
+        objectMapper.registerModule(new OAuth2AuthorizationServerJackson2Module());
+
+        Map<String, Object> map = new HashMap<>();
+        map.put(ConfigurationSettingNames.Client.REQUIRE_PROOF_KEY, true);
+
+        String value = objectMapper.writeValueAsString(map);
+        log.info(value);
+    }
 
     @Test
     void clientSettings() throws JsonProcessingException {
