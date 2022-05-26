@@ -23,7 +23,7 @@ logging:
     web: debug
     # org.springframework.web: debug
     # 包：日志等级
-    cloud.xuxiaowei: debug
+    cn.com.xuxiaowei: debug
   # 日志文件
   file:
     # 文件名及路径
