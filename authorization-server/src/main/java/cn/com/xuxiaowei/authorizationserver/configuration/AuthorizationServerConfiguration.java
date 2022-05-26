@@ -93,6 +93,7 @@ public class AuthorizationServerConfiguration {
         builder.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE);
         builder.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN);
         builder.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS);
+        builder.authorizationGrantType(AuthorizationGrantType.IMPLICIT);
         builder.redirectUri("http://127.0.0.1:1401/code");
         builder.scope("snsapi_base");
 
