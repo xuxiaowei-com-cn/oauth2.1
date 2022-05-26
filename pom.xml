@@ -35,7 +35,7 @@
     </properties>
 
     <modules>
-
+        <module>authorization-server</module>
     </modules>
 
     <dependencies>
