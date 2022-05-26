@@ -29,6 +29,10 @@
         <!-- https://github.com/spring-projects/spring-boot -->
         <spring-boot.version>2.7.0</spring-boot.version>
 
+        <!-- https://github.com/spring-projects/spring-authorization-server -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
+        <spring-security-oauth2-authorization-server.version>0.3.0</spring-security-oauth2-authorization-server.version>
+
         <!-- 打包时跳过单元测试 -->
         <skipTests>true</skipTests>
 
@@ -52,6 +56,14 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-oauth2-authorization-server</artifactId>
+                <version>${spring-security-oauth2-authorization-server.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
