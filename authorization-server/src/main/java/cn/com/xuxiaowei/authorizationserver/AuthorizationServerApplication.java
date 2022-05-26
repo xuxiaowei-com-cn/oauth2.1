@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServic
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.server.authorization.*;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
@@ -37,6 +38,7 @@ import org.springframework.security.oauth2.server.authorization.web.OAuth2Author
  * @see RegisteredClientRepository OAuth 2.0 {@link RegisteredClient} (s) 的存储库。
  * @see InMemoryRegisteredClientRepository 在内存中存储 {@link RegisteredClientRepository} (s) 的 {@link RegisteredClient} 。
  * @see JdbcRegisteredClientRepository {@link RegisteredClientRepository} 的 JDBC 实现，它使用 {@link JdbcOperations} 进行 {@link RegisteredClient} 持久性。
+ * @see OidcScopes
  * @since 0.0.1
  */
 @SpringBootApplication
