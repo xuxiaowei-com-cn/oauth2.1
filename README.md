@@ -32,3 +32,12 @@
     - Windows
         - [下载](https://github.com/alibaba/dragonwell11/releases/download/11.0.15.11.9-GA/Alibaba_Dragonwell_11.0.15.11.9_x64_windows.zip)
         - [国内镜像](https://dragonwell.oss-cn-shanghai.aliyuncs.com/11.0.15.11.9/Alibaba_Dragonwell_11.0.15.11.9_x64_windows.zip)
+
+## Spring 文档
+
+- [Spring 授权服务器参考](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/index.html)
+    - [概述](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/overview.html)
+    - [获得帮助](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/getting-help.html)
+    - [配置模型](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/configuration-model.html)
+    - [核心模型/组件](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/core-model-components.html)
+    - [操作指南](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/how-to.html)
