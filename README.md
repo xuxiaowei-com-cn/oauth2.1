@@ -1,4 +1,4 @@
-# oauth2.1
+# OAuth2.1
 
 ## OAuth 2.1 授权框架
 
