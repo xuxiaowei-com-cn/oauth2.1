@@ -46,6 +46,7 @@
 
     <modules>
         <module>authorization-server</module>
+        <module>client</module>
     </modules>
 
     <dependencies>
