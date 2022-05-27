@@ -43,3 +43,10 @@
     - [配置模型](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/configuration-model.html)
     - [核心模型/组件](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/core-model-components.html)
     - [操作指南](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/how-to.html)
+
+## 启动（体验）步骤
+
+- 启动 authorization-server、client
+- [访问](http://127.0.0.1:1401)
+- 用户名：user
+- 密码：password
