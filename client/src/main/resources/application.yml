@@ -36,6 +36,8 @@ spring:
             client-name: messaging-client-client-credentials
         provider:
           spring:
+            # 访问地址
+            # http://localhost:1301/.well-known/openid-configuration
             issuer-uri: http://localhost:1301
 #
 # 日志 配置
