@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.oauth2.server.authorization.web.OAuth2AuthorizationEndpointFilter;
+import org.springframework.security.oauth2.server.authorization.web.OAuth2AuthorizationServerMetadataEndpointFilter;
 
 /**
  * 程序执行入口
@@ -39,6 +40,7 @@ import org.springframework.security.oauth2.server.authorization.web.OAuth2Author
  * @see InMemoryRegisteredClientRepository 在内存中存储 {@link RegisteredClientRepository} (s) 的 {@link RegisteredClient} 。
  * @see JdbcRegisteredClientRepository {@link RegisteredClientRepository} 的 JDBC 实现，它使用 {@link JdbcOperations} 进行 {@link RegisteredClient} 持久性。
  * @see OidcScopes
+ * @see OAuth2AuthorizationServerMetadataEndpointFilter
  * @since 0.0.1
  */
 @SpringBootApplication
