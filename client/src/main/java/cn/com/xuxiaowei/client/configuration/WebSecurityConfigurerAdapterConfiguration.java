@@ -30,6 +30,9 @@ public class WebSecurityConfigurerAdapterConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+        // 放行
+        http.authorizeRequests().antMatchers("/code").permitAll();
+
         http.authorizeRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated());
 
         http.oauth2Login(oauth2Login -> oauth2Login.loginPage("/oauth2/authorization/messaging-client-oidc")).oauth2Client(withDefaults());

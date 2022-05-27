@@ -32,26 +32,25 @@ public class CodeRestController {
      */
     @RequestMapping("/code")
     public Map<String, Object> code(HttpServletRequest request, HttpServletResponse response, String code, String state) {
-        Map<String, Object> map = new HashMap<>(4);
-
-        map.put("code", code);
 
         log.info(code);
+
+        String clientId = "xuxiaowei_client_id";
+        String clientSecret = "xuxiaowei_client_secret";
 
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setBasicAuth(clientId, clientSecret);
 
         Map<String, String> param = new HashMap<>(8);
         param.put("code", code);
-        param.put("client_id", "xuxiaowei_client_id");
-        param.put("client_secret", "xuxiaowei_client_secret");
         param.put("redirect_uri", "http://127.0.0.1:1401/code");
 
         HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
 
-        String accessTokenUri = "http://127.0.0.1:1301/oauth2/token" + "?code={code}&client_id={client_id}&client_secret={client_secret}&redirect_uri={redirect_uri}&grant_type=authorization_code";
+        String accessTokenUri = "http://127.0.0.1:1301/oauth2/token" + "?code={code}&redirect_uri={redirect_uri}&grant_type=authorization_code";
 
         ResponseEntity<Map> responseEntity = restTemplate.postForEntity(accessTokenUri, httpEntity, Map.class, param);
 
@@ -62,7 +61,9 @@ public class CodeRestController {
 
         log.info(String.valueOf(body));
 
-        return map;
+        body.put("注意", "这是额外信息，由于授权码 code 只能使用一次，故此URL不能刷新。");
+
+        return body;
     }
 
 }
