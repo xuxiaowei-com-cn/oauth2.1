@@ -9,24 +9,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.core.AuthorizationGrantType;
-import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.OidcScopes;
-import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
+import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
-import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
+import javax.sql.DataSource;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
@@ -77,46 +72,56 @@ public class AuthorizationServerConfiguration {
      * @see UserDetailsService 用于检索用户进行身份验证的实例。
      */
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.withDefaultPasswordEncoder().username("user").password("password").roles("USER").build();
-        return new InMemoryUserDetailsManager(userDetails);
+    public UserDetailsService userDetailsService(DataSource dataSource) {
+        JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+
+        // 仅在新建数据库后，首次运行项目初始化时使用
+//        UserDetails userDetails = User.withDefaultPasswordEncoder().username("user").password("password").roles("USER").build();
+//        jdbcUserDetailsManager.createUser(userDetails);
+
+        return jdbcUserDetailsManager;
     }
 
     /**
      * @see RegisteredClientRepository 用于管理客户端的实例。
      */
     @Bean
-    public RegisteredClientRepository registeredClientRepository() {
+    public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
 
-        RegisteredClient.Builder builder = RegisteredClient.withId(UUID.randomUUID().toString());
-        builder.clientId("xuxiaowei_client_id");
-        builder.clientSecret("{noop}xuxiaowei_client_secret");
-        builder.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
-        builder.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE);
-        builder.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN);
-        builder.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS);
-        builder.authorizationGrantType(AuthorizationGrantType.IMPLICIT);
-        builder.redirectUri("http://127.0.0.1:1401/code");
-        builder.scope("snsapi_base");
+        JdbcRegisteredClientRepository registeredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
 
-        RegisteredClient messagingClient = RegisteredClient.withId(UUID.randomUUID().toString())
-            .clientId("messaging-client")
-            .clientSecret("{noop}secret")
-            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-            .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-            .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-            .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-            .redirectUri("http://127.0.0.1:1401/login/oauth2/code/messaging-client-oidc")
-            .redirectUri("http://127.0.0.1:1401/authorized")
-            .scope(OidcScopes.OPENID)
-            .scope("message.read")
-            .scope("message.write")
-            .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-            .build();
+//        RegisteredClient.Builder builder = RegisteredClient.withId(UUID.randomUUID().toString());
+//        builder.clientId("xuxiaowei_client_id");
+//        builder.clientSecret("{noop}xuxiaowei_client_secret");
+//        builder.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
+//        builder.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE);
+//        builder.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN);
+//        builder.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS);
+//        builder.authorizationGrantType(AuthorizationGrantType.IMPLICIT);
+//        builder.redirectUri("http://127.0.0.1:1401/code");
+//        builder.scope("snsapi_base");
 
-        RegisteredClient registeredClient = builder.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build()).build();
+//        RegisteredClient messagingClient = RegisteredClient.withId(UUID.randomUUID().toString())
+//            .clientId("messaging-client")
+//            .clientSecret("{noop}secret")
+//            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+//            .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+//            .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+//            .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+//            .redirectUri("http://127.0.0.1:1401/login/oauth2/code/messaging-client-oidc")
+//            .redirectUri("http://127.0.0.1:1401/authorized")
+//            .scope(OidcScopes.OPENID)
+//            .scope("message.read")
+//            .scope("message.write")
+//            .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
+//            .build();
+//
+//        RegisteredClient registeredClient = builder.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build()).build();
 
-        return new InMemoryRegisteredClientRepository(registeredClient, messagingClient);
+//        registeredClientRepository.save(registeredClient);
+//        registeredClientRepository.save(messagingClient);
+
+        return registeredClientRepository;
     }
 
     /**
