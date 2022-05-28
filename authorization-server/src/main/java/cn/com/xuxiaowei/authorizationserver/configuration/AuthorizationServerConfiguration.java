@@ -1,14 +1,18 @@
 package cn.com.xuxiaowei.authorizationserver.configuration;
 
+import cn.com.xuxiaowei.authorizationserver.properties.CloudKeyProperties;
+import cn.com.xuxiaowei.authorizationserver.utils.KeyStoreKeyFactory;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.io.Resource;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
@@ -28,7 +32,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.UUID;
@@ -44,6 +47,13 @@ import java.util.UUID;
 @Slf4j
 @Configuration
 public class AuthorizationServerConfiguration {
+
+    private CloudKeyProperties cloudKeyProperties;
+
+    @Autowired
+    public void setCloudKeyProperties(CloudKeyProperties cloudKeyProperties) {
+        this.cloudKeyProperties = cloudKeyProperties;
+    }
 
     /**
      * @see <a href="https://docs.spring.io/spring-authorization-server/docs/current/reference/html/protocol-endpoints.html">协议端点的</a> Spring Security 过滤器链。
@@ -124,27 +134,18 @@ public class AuthorizationServerConfiguration {
      */
     @Bean
     public JWKSource<SecurityContext> jwkSource() {
-        KeyPair keyPair = generateRsaKey();
+        CloudKeyProperties.KeyStore keyStore = cloudKeyProperties.getKeyStore();
+        Resource location = keyStore.getLocation();
+        String alias = keyStore.getAlias();
+        String password = keyStore.getPassword();
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(location, password.toCharArray());
+        KeyPair keyPair = keyStoreKeyFactory.getKeyPair(alias, password.toCharArray());
+
         RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
         RSAKey rsaKey = new RSAKey.Builder(publicKey).privateKey(privateKey).keyID(UUID.randomUUID().toString()).build();
         JWKSet jwkSet = new JWKSet(rsaKey);
         return new ImmutableJWKSet<>(jwkSet);
-    }
-
-    /**
-     * 启动时生成的带有密钥的实例 {@link KeyPair} 用于创建 {@link JWKSource} 上述内容。
-     */
-    private static KeyPair generateRsaKey() {
-        KeyPair keyPair;
-        try {
-            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-            keyPairGenerator.initialize(2048);
-            keyPair = keyPairGenerator.generateKeyPair();
-        } catch (Exception ex) {
-            throw new IllegalStateException(ex);
-        }
-        return keyPair;
     }
 
     /**
