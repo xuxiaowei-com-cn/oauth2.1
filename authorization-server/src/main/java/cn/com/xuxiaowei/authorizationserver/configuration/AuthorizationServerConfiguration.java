@@ -134,7 +134,7 @@ public class AuthorizationServerConfiguration {
     public JWKSource<SecurityContext> jwkSource() {
         PublicKey publicKey = rsaKeyProperties.rsaPublicKey();
         PrivateKey privateKey = rsaKeyProperties.rsaPrivateKey();
-        RSAKey rsaKey = new RSAKey.Builder((RSAPublicKey) publicKey).privateKey(privateKey).keyID(UUID.randomUUID().toString()).build();
+        RSAKey rsaKey = new RSAKey.Builder((RSAPublicKey) publicKey).privateKey(privateKey).build();
         JWKSet jwkSet = new JWKSet(rsaKey);
         return new ImmutableJWKSet<>(jwkSet);
     }
