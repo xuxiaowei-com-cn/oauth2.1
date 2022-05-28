@@ -50,3 +50,18 @@
 - [访问](http://127.0.0.1:1301/oauth2/authorize?client_id=xuxiaowei_client_id&redirect_uri=http://127.0.0.1:1401/code&response_type=code&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7)
 - 用户名：user
 - 密码：password
+
+## 分支描述
+
+- main
+    - 最基础的功能
+- key-store
+    - 使用秘钥文件
+- RSA-key
+    - 使用 RSA 秘钥对
+- mysql
+    - 使用MySQL数据库
+- WebClient
+    - 使用 WebClient、webflux、oauth2-client
+- resource_withPublicKey
+    - 使用 withPublicKey 的 resource
