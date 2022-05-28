@@ -1,7 +1,6 @@
 package cn.com.xuxiaowei.authorizationserver.configuration;
 
-import cn.com.xuxiaowei.authorizationserver.properties.CloudKeyProperties;
-import cn.com.xuxiaowei.authorizationserver.utils.KeyStoreKeyFactory;
+import cn.com.xuxiaowei.authorizationserver.properties.RsaKeyProperties;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.core.io.Resource;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
@@ -31,8 +29,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
-import java.security.KeyPair;
-import java.security.interfaces.RSAPrivateKey;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.UUID;
 
@@ -48,11 +46,11 @@ import java.util.UUID;
 @Configuration
 public class AuthorizationServerConfiguration {
 
-    private CloudKeyProperties cloudKeyProperties;
+    private RsaKeyProperties rsaKeyProperties;
 
     @Autowired
-    public void setCloudKeyProperties(CloudKeyProperties cloudKeyProperties) {
-        this.cloudKeyProperties = cloudKeyProperties;
+    public void setRsaKeyProperties(RsaKeyProperties rsaKeyProperties) {
+        this.rsaKeyProperties = rsaKeyProperties;
     }
 
     /**
@@ -134,16 +132,9 @@ public class AuthorizationServerConfiguration {
      */
     @Bean
     public JWKSource<SecurityContext> jwkSource() {
-        CloudKeyProperties.KeyStore keyStore = cloudKeyProperties.getKeyStore();
-        Resource location = keyStore.getLocation();
-        String alias = keyStore.getAlias();
-        String password = keyStore.getPassword();
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(location, password.toCharArray());
-        KeyPair keyPair = keyStoreKeyFactory.getKeyPair(alias, password.toCharArray());
-
-        RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-        RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-        RSAKey rsaKey = new RSAKey.Builder(publicKey).privateKey(privateKey).keyID(UUID.randomUUID().toString()).build();
+        PublicKey publicKey = rsaKeyProperties.rsaPublicKey();
+        PrivateKey privateKey = rsaKeyProperties.rsaPrivateKey();
+        RSAKey rsaKey = new RSAKey.Builder((RSAPublicKey) publicKey).privateKey(privateKey).keyID(UUID.randomUUID().toString()).build();
         JWKSet jwkSet = new JWKSet(rsaKey);
         return new ImmutableJWKSet<>(jwkSet);
     }
