@@ -29,8 +29,9 @@
         <!-- https://github.com/spring-projects/spring-boot -->
         <spring-boot.version>2.7.0</spring-boot.version>
 
-        <!-- https://github.com/spring-projects/spring-authorization-server -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
+        <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
+        <!-- https://github.com/spring-projects/spring-authorization-server -->
         <spring-security-oauth2-authorization-server.version>0.3.0</spring-security-oauth2-authorization-server.version>
 
         <!-- SQL 性能分析 -->
