@@ -46,10 +46,10 @@ import org.springframework.security.oauth2.server.authorization.web.authenticati
  * @see OidcScopes
  * @see OAuth2AuthorizationServerMetadataEndpointFilter
  * @see OAuth2ClientAuthenticationFilter OAuth 2.1 客户凭证验证
- * @see JwtClientAssertionAuthenticationConverter
- * @see ClientSecretBasicAuthenticationConverter
- * @see ClientSecretPostAuthenticationConverter
- * @see PublicClientAuthenticationConverter
+ * @see JwtClientAssertionAuthenticationConverter 基于 JWT 客户端凭据 验证
+ * @see ClientSecretBasicAuthenticationConverter 基于 Basic 客户端凭据 验证
+ * @see ClientSecretPostAuthenticationConverter 基于 POST 参数的 客户端凭据 验证
+ * @see PublicClientAuthenticationConverter 基于 Proof Key for Code Exchange (PKCE) 对公共客户端进行身份验证
  * @since 0.0.1
  */
 @SpringBootApplication
