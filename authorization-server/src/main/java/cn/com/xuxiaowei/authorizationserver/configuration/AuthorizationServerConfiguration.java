@@ -14,8 +14,13 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -90,36 +95,48 @@ public class AuthorizationServerConfiguration {
 
         JdbcRegisteredClientRepository registeredClientRepository = new JdbcRegisteredClientRepository(jdbcTemplate);
 
-//        RegisteredClient.Builder builder = RegisteredClient.withId(UUID.randomUUID().toString());
-//        builder.clientId("xuxiaowei_client_id");
-//        builder.clientSecret("{noop}xuxiaowei_client_secret");
-//        builder.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
-//        builder.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE);
-//        builder.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN);
-//        builder.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS);
-//        builder.authorizationGrantType(AuthorizationGrantType.IMPLICIT);
-//        builder.redirectUri("http://127.0.0.1:1401/code");
-//        builder.scope("snsapi_base");
+        RegisteredClient.Builder builder1 = RegisteredClient.withId(UUID.randomUUID().toString());
+        // 客户ID
+        builder1.clientId("xuxiaowei_client_id");
+        // 客户凭证
+        builder1.clientSecret("{noop}xuxiaowei_client_secret");
+        // 客户凭证验证方式
+        builder1.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
+        builder1.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST);
+        // 授权类型
+        builder1.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE);
+        builder1.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN);
+        builder1.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS);
+        builder1.authorizationGrantType(AuthorizationGrantType.IMPLICIT);
+        // 授权成功后重定向地址
+        builder1.redirectUri("http://127.0.0.1:1401/code");
+        // 授权范围
+        builder1.scope("snsapi_base");
+        RegisteredClient builder1Client = builder1.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build()).build();
 
-//        RegisteredClient messagingClient = RegisteredClient.withId(UUID.randomUUID().toString())
-//            .clientId("messaging-client")
-//            .clientSecret("{noop}secret")
-//            .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-//            .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-//            .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-//            .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-//            .redirectUri("http://127.0.0.1:1401/login/oauth2/code/messaging-client-oidc")
-//            .redirectUri("http://127.0.0.1:1401/authorized")
-//            .scope(OidcScopes.OPENID)
-//            .scope("message.read")
-//            .scope("message.write")
-//            .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
-//            .build();
-//
-//        RegisteredClient registeredClient = builder.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build()).build();
+        RegisteredClient.Builder builder2 = RegisteredClient.withId(UUID.randomUUID().toString());
+        // 客户ID
+        builder2.clientId("messaging-client");
+        // 客户凭证
+        builder2.clientSecret("{noop}secret");
+        // 客户凭证验证方式
+        builder2.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
+        builder2.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST);
+        // 授权类型
+        builder2.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE);
+        builder2.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN);
+        builder2.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS);
+        // 授权成功后重定向地址
+        builder2.redirectUri("http://127.0.0.1:1401/login/oauth2/code/messaging-client-oidc");
+        builder2.redirectUri("http://127.0.0.1:1401/authorized");
+        // 授权范围
+        builder2.scope(OidcScopes.OPENID);
+        builder2.scope("message.read");
+        builder2.scope("message.write");
+        RegisteredClient builder2Client = builder2.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build()).build();
 
-//        registeredClientRepository.save(registeredClient);
-//        registeredClientRepository.save(messagingClient);
+        registeredClientRepository.save(builder1Client);
+        registeredClientRepository.save(builder2Client);
 
         return registeredClientRepository;
     }
