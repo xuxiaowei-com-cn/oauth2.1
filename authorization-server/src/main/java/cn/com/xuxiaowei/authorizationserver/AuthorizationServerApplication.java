@@ -14,6 +14,11 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.oauth2.server.authorization.web.OAuth2AuthorizationEndpointFilter;
 import org.springframework.security.oauth2.server.authorization.web.OAuth2AuthorizationServerMetadataEndpointFilter;
+import org.springframework.security.oauth2.server.authorization.web.OAuth2ClientAuthenticationFilter;
+import org.springframework.security.oauth2.server.authorization.web.authentication.ClientSecretBasicAuthenticationConverter;
+import org.springframework.security.oauth2.server.authorization.web.authentication.ClientSecretPostAuthenticationConverter;
+import org.springframework.security.oauth2.server.authorization.web.authentication.JwtClientAssertionAuthenticationConverter;
+import org.springframework.security.oauth2.server.authorization.web.authentication.PublicClientAuthenticationConverter;
 
 /**
  * 程序执行入口
@@ -40,6 +45,11 @@ import org.springframework.security.oauth2.server.authorization.web.OAuth2Author
  * @see JdbcRegisteredClientRepository {@link RegisteredClientRepository} 的 JDBC 实现，它使用 {@link org.springframework.jdbc.core.JdbcOperations} 进行 {@link RegisteredClient} 持久性。
  * @see OidcScopes
  * @see OAuth2AuthorizationServerMetadataEndpointFilter
+ * @see OAuth2ClientAuthenticationFilter OAuth 2.1 客户凭证验证
+ * @see JwtClientAssertionAuthenticationConverter 基于 JWT 客户端凭据 验证
+ * @see ClientSecretBasicAuthenticationConverter 基于 Basic 客户端凭据 验证
+ * @see ClientSecretPostAuthenticationConverter 基于 POST 参数的 客户端凭据 验证
+ * @see PublicClientAuthenticationConverter 基于 Proof Key for Code Exchange (PKCE) 对公共客户端进行身份验证
  * @since 0.0.1
  */
 @SpringBootApplication
