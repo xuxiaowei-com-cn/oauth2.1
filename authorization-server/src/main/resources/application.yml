@@ -7,12 +7,6 @@ server:
 spring:
   application:
     name: authorization-server
-  datasource:
-    # driver-class-name: com.mysql.cj.jdbc.Driver
-    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy:mysql://127.0.0.1:3306/oauth2_1?useSSL=false&serverTimezone=GMT%2B8
-    username: root
-    password: root
 #
 # 日志 配置
 #
