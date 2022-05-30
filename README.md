@@ -60,7 +60,9 @@
 - RSA-key
     - 使用 RSA 秘钥对
 - mysql
-    - 使用MySQL数据库
+    - 使用 MySQL 数据库
+- mysql_jdbc_store
+    - MySQL 授权码、授权Token、刷新Token、授权 持久化
 - WebClient
     - 使用 WebClient、webflux、oauth2-client
 - resource_withPublicKey
