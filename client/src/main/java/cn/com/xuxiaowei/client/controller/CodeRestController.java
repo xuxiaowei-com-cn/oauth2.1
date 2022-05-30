@@ -2,12 +2,14 @@ package cn.com.xuxiaowei.client.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,39 +33,57 @@ public class CodeRestController {
      * @return 返回 Token
      */
     @RequestMapping("/code")
-    public Map<String, Object> code(HttpServletRequest request, HttpServletResponse response, String code, String state) {
+    public Object code(HttpServletRequest request, HttpServletResponse response, String code, String state) {
 
         log.info(code);
 
-        String clientId = "xuxiaowei_client_id";
-        String clientSecret = "xuxiaowei_client_secret";
+        Map<String, Object> result = new HashMap<>(4);
 
-        RestTemplate restTemplate = new RestTemplate();
+        if (StringUtils.hasText(code)) {
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-        httpHeaders.setBasicAuth(clientId, clientSecret);
+            final String accessToken = "ACCESS_TOKEN:" + code;
 
-        Map<String, String> param = new HashMap<>(8);
-        param.put("code", code);
-        param.put("redirect_uri", "http://127.0.0.1:1401/code");
+            HttpSession session = request.getSession();
+            Object accessTokenObj = session.getAttribute(accessToken);
 
-        HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
+            if (accessTokenObj == null) {
+                String clientId = "xuxiaowei_client_id";
+                String clientSecret = "xuxiaowei_client_secret";
 
-        String accessTokenUri = "http://127.0.0.1:1301/oauth2/token" + "?code={code}&redirect_uri={redirect_uri}&grant_type=authorization_code";
+                RestTemplate restTemplate = new RestTemplate();
 
-        ResponseEntity<Map> responseEntity = restTemplate.postForEntity(accessTokenUri, httpEntity, Map.class, param);
+                HttpHeaders httpHeaders = new HttpHeaders();
+                httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+                httpHeaders.setBasicAuth(clientId, clientSecret);
 
-        HttpStatus statusCode = responseEntity.getStatusCode();
-        log.info(String.valueOf(statusCode));
+                Map<String, String> param = new HashMap<>(8);
+                param.put("code", code);
+                param.put("redirect_uri", "http://127.0.0.1:1401/code");
 
-        Map body = responseEntity.getBody();
+                HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
 
-        log.info(String.valueOf(body));
+                String accessTokenUri = "http://127.0.0.1:1301/oauth2/token" + "?code={code}&redirect_uri={redirect_uri}&grant_type=authorization_code";
 
-        body.put("注意", "这是额外信息，由于授权码 code 只能使用一次，故此URL不能刷新。");
+                ResponseEntity<Map> responseEntity = restTemplate.postForEntity(accessTokenUri, httpEntity, Map.class, param);
 
-        return body;
+                HttpStatus statusCode = responseEntity.getStatusCode();
+                log.info(String.valueOf(statusCode));
+
+                Map body = responseEntity.getBody();
+
+                session.setAttribute(accessToken, body);
+
+                log.info(String.valueOf(body));
+
+                return body;
+            } else {
+                return accessTokenObj;
+            }
+
+        } else {
+            result.put("msg", "授权码 不能为空");
+            return result;
+        }
     }
 
 }
