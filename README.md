@@ -59,3 +59,5 @@
     - 使用 WebClient、webflux、oauth2-client
 - resource_withPublicKey
     - 使用 withPublicKey 的 resource
+- consentPage
+    - 自定义授权页面
