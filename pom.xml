@@ -12,9 +12,9 @@
     <description>oauth2.1</description>
 
     <properties>
-        <java.version>11</java.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -29,9 +29,11 @@
         <!-- https://github.com/spring-projects/spring-boot -->
         <spring-boot.version>2.7.0</spring-boot.version>
 
-        <!-- https://github.com/spring-projects/spring-authorization-server -->
+        <!-- https://repo.spring.io/ui/native/milestone/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
-        <spring-security-oauth2-authorization-server.version>0.3.0</spring-security-oauth2-authorization-server.version>
+        <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
+        <!-- https://github.com/spring-projects/spring-authorization-server -->
+        <spring-security-oauth2-authorization-server.version>0.4.0-RC1</spring-security-oauth2-authorization-server.version>
 
         <!-- SQL 性能分析 -->
         <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
@@ -151,5 +153,18 @@
         </plugins>
 
     </build>
+
+    <repositories>
+
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
 
 </project>
