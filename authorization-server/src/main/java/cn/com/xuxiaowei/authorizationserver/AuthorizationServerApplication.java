@@ -10,7 +10,6 @@ import org.springframework.security.oauth2.core.oidc.OidcIdToken;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.authorization.*;
-import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationCodeRequestAuthenticationProvider;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
@@ -57,7 +56,7 @@ import org.springframework.security.oauth2.server.authorization.web.authenticati
  * @see ClientSecretPostAuthenticationConverter 基于 POST 参数的 客户端凭据 验证
  * @see PublicClientAuthenticationConverter 基于 Proof Key for Code Exchange (PKCE) 对公共客户端进行身份验证
  * @see OAuth2TokenGenerator OAuth2 令牌生成器
- * @see OAuth2AuthorizationCodeRequestAuthenticationProvider.OAuth2AuthorizationCodeGenerator OAuth2 授权码生成器
+ * @see org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationCodeGenerator OAuth2 授权码生成器
  * @see JwtGenerator 生成用于 {@link Jwt} 或 {@link OAuth2TokenGenerator} 的 {@link OAuth2AccessToken} 的 {@link OidcIdToken}。
  * @see DelegatingOAuth2TokenGenerator 一个 {@link OAuth2TokenGenerator}，它简单地委托给它的 {@link OAuth2TokenGenerator} (s) 的内部 List。每个 {@link OAuth2TokenGenerator} 都有机会使用 {@link OAuth2TokenGenerator#generate(OAuth2TokenContext)} 并返回第一个non-null OAuth2Token 。
  * @see OAuth2AccessTokenGenerator OAuth2 访问令牌生成器
