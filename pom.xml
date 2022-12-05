@@ -33,7 +33,7 @@
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://github.com/spring-projects/spring-authorization-server -->
-        <spring-security-oauth2-authorization-server.version>0.4.0-RC1</spring-security-oauth2-authorization-server.version>
+        <spring-security-oauth2-authorization-server.version>0.4.0</spring-security-oauth2-authorization-server.version>
 
         <!-- SQL 性能分析 -->
         <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
@@ -48,7 +48,7 @@
 
     <modules>
         <module>authorization-server</module>
-        <module>client</module>
+        <module>login</module>
     </modules>
 
     <dependencies>
@@ -152,18 +152,5 @@
         </plugins>
 
     </build>
-
-    <repositories>
-
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-    </repositories>
 
 </project>

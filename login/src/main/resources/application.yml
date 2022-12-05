@@ -1,0 +1,35 @@
+server:
+  port: 8080
+
+logging:
+  level:
+#    root: debug
+    org.springframework.web: debug
+    org.springframework.security: debug
+#    org.springframework.boot.autoconfigure: DEBUG
+
+spring:
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          login-client:
+            provider: spring
+            client-id: login-client
+            client-secret: openid-connect
+            client-authentication-method: client_secret_basic
+            authorization-grant-type: authorization_code
+            redirect-uri: http://login:8080/login/oauth2/code/login-client
+            scope: openid,profile,email
+            client-name: Spring
+        provider:
+          spring:
+            authorization-uri: http://authorization-server:9000/oauth2/authorize
+            token-uri: http://authorization-server:9000/oauth2/token
+            jwk-set-uri: http://authorization-server:9000/oauth2/jwks
+            user-info-uri: http://authorization-server:9000/user
+#            user-info-authentication-method: post
+            user-name-attribute: sub
+#            user-info-authentication-method: form

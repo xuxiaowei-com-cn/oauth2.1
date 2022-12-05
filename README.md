@@ -38,8 +38,12 @@
 
 ## 启动（体验）步骤
 
-- 启动 authorization-server、client
-- [访问](http://127.0.0.1:1301/oauth2/authorize?client_id=xuxiaowei_client_id&redirect_uri=http://127.0.0.1:1401/code&response_type=code&scope=snsapi_base&state=beff3dfc-bad8-40db-b25f-e5459e3d6ad7)
+- 参考：https://github.com/spring-projects/spring-security-samples/tree/main/servlet/spring-boot/java/oauth2/
+    - authorization-server
+    - login
+- 将 authorization-server 的 host 指向 127.0.0.1
+- 将 login 的 host 指向 127.0.0.1
+- 访问 http://login:8080/
 - 用户名：user
 - 密码：password
 
