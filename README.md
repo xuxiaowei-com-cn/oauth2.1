@@ -38,6 +38,7 @@
 
 ## 启动（体验）步骤
 
+- 参考：https://docs.spring.io/spring-security/reference/servlet/oauth2/login/core.html
 - 参考：https://github.com/spring-projects/spring-security-samples/tree/main/servlet/spring-boot/java/oauth2/
     - authorization-server
     - login
