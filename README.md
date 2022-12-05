@@ -35,6 +35,8 @@
     - [配置模型](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/configuration-model.html)
     - [核心模型/组件](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/core-model-components.html)
     - [操作指南](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/how-to.html)
+- https://openid.net/specs/openid-connect-core-1_0.html#UserInfoRequest
+- https://openid.net/specs/openid-connect-core-1_0.html#RFC6750
 
 ## 启动（体验）步骤
 
