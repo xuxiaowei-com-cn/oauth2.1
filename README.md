@@ -1,5 +1,9 @@
 # OAuth2.1
 
+## 相关项目
+
+- 本项目为 OAuth 2.1 协议，OAuth 2 协议参见 [spring-boot-oauth2-jwt](https://gitee.com/xuxiaowei-com-cn/spring-boot-oauth2-jwt.git)
+
 ## OAuth 2.1 授权框架
 
 - 互联网草稿是最长有效期为六个月时间的草稿文件，并且可能随时被其他文件更新、替换或废止。
