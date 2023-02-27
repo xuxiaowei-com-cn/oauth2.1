@@ -100,7 +100,6 @@ public class AuthorizationServerConfiguration {
         builder1.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE);
         builder1.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN);
         builder1.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS);
-        builder1.authorizationGrantType(AuthorizationGrantType.IMPLICIT);
         // 授权成功后重定向地址
         builder1.redirectUri("http://127.0.0.1:1401/code");
         // 授权范围
