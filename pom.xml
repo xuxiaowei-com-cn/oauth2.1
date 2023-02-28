@@ -33,7 +33,7 @@
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://github.com/spring-projects/spring-authorization-server -->
-        <spring-security-oauth2-authorization-server.version>1.0.1</spring-security-oauth2-authorization-server.version>
+        <spring-security-oauth2-authorization-server.version>1.0.0</spring-security-oauth2-authorization-server.version>
 
         <!-- SQL 性能分析 -->
         <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
