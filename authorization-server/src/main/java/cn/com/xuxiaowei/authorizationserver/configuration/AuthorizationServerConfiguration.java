@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
@@ -87,48 +88,21 @@ public class AuthorizationServerConfiguration {
      */
     @Bean
     public RegisteredClientRepository registeredClientRepository() {
+        RegisteredClient registeredClient3 = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("client3")
+                // jwt方式验证，密码作为签名算法的密钥，不能配前缀！
+                .clientSecret("01234567890123456789012345678912")
+                .scope("snsapi_base")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_JWT)
+                .clientSettings(ClientSettings.builder()
+                        // JWT 方式必须配置，确定jwt的签名算法（CLIENT_SECRET_JWT 方式使用 MacAlgorithm（对称加密算法），密钥为client_secret）
+                        .tokenEndpointAuthenticationSigningAlgorithm(MacAlgorithm.HS256)
+//                        .jwkSetUrl("http://localhost:1401")
+                        .build())
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .build();
 
-        RegisteredClient.Builder builder1 = RegisteredClient.withId(UUID.randomUUID().toString());
-        // 客户ID
-        builder1.clientId("xuxiaowei_client_id");
-        // 客户凭证
-        builder1.clientSecret("{noop}xuxiaowei_client_secret");
-        // 客户凭证验证方式
-        builder1.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
-        builder1.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST);
-        // 授权类型
-        builder1.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE);
-        builder1.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN);
-        builder1.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS);
-        builder1.authorizationGrantType(AuthorizationGrantType.IMPLICIT);
-        // 授权成功后重定向地址
-        builder1.redirectUri("http://127.0.0.1:1401/code");
-        // 授权范围
-        builder1.scope("snsapi_base");
-        RegisteredClient builder1Client = builder1.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build()).build();
-
-        RegisteredClient.Builder builder2 = RegisteredClient.withId(UUID.randomUUID().toString());
-        // 客户ID
-        builder2.clientId("messaging-client");
-        // 客户凭证
-        builder2.clientSecret("{noop}secret");
-        // 客户凭证验证方式
-        builder2.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
-        builder2.clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST);
-        // 授权类型
-        builder2.authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE);
-        builder2.authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN);
-        builder2.authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS);
-        // 授权成功后重定向地址
-        builder2.redirectUri("http://127.0.0.1:1401/login/oauth2/code/messaging-client-oidc");
-        builder2.redirectUri("http://127.0.0.1:1401/authorized");
-        // 授权范围
-        builder2.scope(OidcScopes.OPENID);
-        builder2.scope("message.read");
-        builder2.scope("message.write");
-        RegisteredClient builder2Client = builder2.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build()).build();
-
-        return new InMemoryRegisteredClientRepository(builder1Client, builder2Client);
+        return new InMemoryRegisteredClientRepository(registeredClient3);
     }
 
     /**
@@ -161,13 +135,14 @@ public class AuthorizationServerConfiguration {
 
     /**
      * {@link AuthorizationServerSettings} 配置 Spring Authorization Server 的实例。
+     *
      * @see <a href=
      * "https://github.com/spring-projects/spring-authorization-server/commit/c60ae4532f1d745bff6eb793113731aba0493b70">Rename
      * ProviderSettings</a>
      */
     @Bean
     public AuthorizationServerSettings authorizationServerSettings() {
-        return AuthorizationServerSettings.builder().build();
+        return AuthorizationServerSettings.builder().issuer("http://localhost:1401").build();
     }
 
 }
