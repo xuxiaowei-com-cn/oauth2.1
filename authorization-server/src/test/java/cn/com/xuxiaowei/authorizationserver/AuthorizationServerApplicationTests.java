@@ -1,26 +1,41 @@
 package cn.com.xuxiaowei.authorizationserver;
 
-import com.nimbusds.jose.*;
-import com.nimbusds.jose.crypto.MACSigner;
-import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.OctetSequenceKey;
+import com.nimbusds.jose.jwk.source.ImmutableSecret;
+import com.nimbusds.jose.jwk.source.JWKSource;
+import com.nimbusds.jose.proc.SecurityContext;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.*;
+import org.springframework.security.oauth2.jose.jws.JwsAlgorithm;
+import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
-import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.oauth2.server.authorization.authentication.JwtClientAssertionAuthenticationProvider;
 import org.springframework.security.oauth2.server.authorization.authentication.JwtClientAssertionDecoderFactory;
 import org.springframework.security.oauth2.server.authorization.web.OAuth2ClientAuthenticationFilter;
 import org.springframework.security.oauth2.server.authorization.web.authentication.JwtClientAssertionAuthenticationConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Base64;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import com.nimbusds.jose.jwk.JWK;
+import com.nimbusds.jose.jwk.JWKSet;
+
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.Base64;
 //@SpringBootTest
 
 /**
@@ -33,25 +48,20 @@ import java.util.Map;
 class AuthorizationServerApplicationTests {
 
     @Test
-    void contextLoads() throws JOSEException {
+    void contextLoads() {
 
         String clientId = "client3";
         String clientSecret = "01234567890123456789012345678912";
         String scope = "snsapi_base";
         String accessTokenUri = "http://localhost:1301/oauth2/token" + "?client_id={client_id}&grant_type=client_credentials&scope={scope}&client_assertion_type={client_assertion_type}&client_assertion={client_assertion}";
 
-        // 至少以下四项信息
-        JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-                // 主体：固定clientId
+        JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
                 .subject(clientId)
-                // 发行者：固定clientId
                 .issuer(clientId)
-                // 授权中心的地址
-                .audience("http://localhost:1401")
-                // 过期时间
-                .expirationTime(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)).build();
+                .audience(Collections.singletonList("http://localhost:1401"))
+                .expiresAt(Instant.now().plus(1, ChronoUnit.DAYS)).build();
 
-        String jwt = hmacSign(claimsSet, clientSecret);
+        String jwt = hmacSign(jwtClaimsSet, clientSecret);
 
         log.info(jwt);
 
@@ -76,18 +86,13 @@ class AuthorizationServerApplicationTests {
 
     }
 
-    /**
-     * 使用 HMAC 算法加签生成jwt
-     */
-    private static String hmacSign(JWTClaimsSet claimsSet, String secret) throws JOSEException {
-        SecretKey signingKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.RS256.getName());
-        JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
-        JWSObject jwsObject = new JWSObject(header, new Payload(claimsSet.toJSONObject()));
-        JWSSigner signer = new MACSigner(signingKey);
-        jwsObject.sign(signer);
-
-        // 返回序列化后的JWT令牌
-        return jwsObject.serialize();
+    private static String hmacSign(JwtClaimsSet claimsSet, String secret) {
+        JwsHeader jwsHeader = JwsHeader.with(MacAlgorithm.HS256).build();
+        JWKSource<SecurityContext> jwkSource = new ImmutableSecret<>(secret.getBytes(StandardCharsets.UTF_8));
+        NimbusJwtEncoder nimbusJwtEncoder = new NimbusJwtEncoder(jwkSource);
+        JwtEncoderParameters jwtEncoderParameters = JwtEncoderParameters.from(jwsHeader, claimsSet);
+        Jwt encode = nimbusJwtEncoder.encode(jwtEncoderParameters);
+        return encode.getTokenValue();
     }
 
 }
