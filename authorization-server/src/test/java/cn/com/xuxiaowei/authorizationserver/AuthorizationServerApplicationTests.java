@@ -1,15 +1,12 @@
 package cn.com.xuxiaowei.authorizationserver;
 
-import com.nimbusds.jose.JOSEException;
-import com.nimbusds.jose.JWSAlgorithm;
-import com.nimbusds.jose.JWSHeader;
-import com.nimbusds.jose.JWSSigner;
+import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.SignedJWT;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.*;
+import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.authorization.authentication.JwtClientAssertionAuthenticationProvider;
 import org.springframework.security.oauth2.server.authorization.authentication.JwtClientAssertionDecoderFactory;
@@ -17,6 +14,7 @@ import org.springframework.security.oauth2.server.authorization.web.OAuth2Client
 import org.springframework.security.oauth2.server.authorization.web.authentication.JwtClientAssertionAuthenticationConverter;
 import org.springframework.web.client.RestTemplate;
 
+import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -82,12 +80,14 @@ class AuthorizationServerApplicationTests {
      * 使用 HMAC 算法加签生成jwt
      */
     private static String hmacSign(JWTClaimsSet claimsSet, String secret) throws JOSEException {
-        SecretKeySpec secretKeySpec = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
-        JWSSigner signer = new MACSigner(secretKeySpec);
+        SecretKey signingKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.RS256.getName());
+        JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
+        JWSObject jwsObject = new JWSObject(header, new Payload(claimsSet.toJSONObject()));
+        JWSSigner signer = new MACSigner(signingKey);
+        jwsObject.sign(signer);
 
-        SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claimsSet);
-        signedJWT.sign(signer);
-        return signedJWT.serialize();
+        // 返回序列化后的JWT令牌
+        return jwsObject.serialize();
     }
 
 }
