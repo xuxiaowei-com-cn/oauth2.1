@@ -39,7 +39,7 @@
 ## 启动（体验）步骤
 
 - 启动 authorization-server、client
-- [访问，查看设备授权码](http://localhost:1401/authorize)
-- [访问，登录，输入设别授权码，进行授权](http://localhost:1301/activate)
+- [访问，查看设备授权码](http://127.0.0.1:1401/authorize)
+- [访问，登录，输入设别授权码，进行授权](http://127.0.0.1:1301/activate)
 - 用户名：user
 - 密码：password
