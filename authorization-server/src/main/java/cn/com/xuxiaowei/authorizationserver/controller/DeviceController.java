@@ -34,14 +34,4 @@ public class DeviceController {
         return "activate";
     }
 
-    @GetMapping("/activated")
-    public String activated() {
-        return "activated";
-    }
-
-    @GetMapping(value = "/", params = "success")
-    public String success() {
-        return "activated";
-    }
-
 }
