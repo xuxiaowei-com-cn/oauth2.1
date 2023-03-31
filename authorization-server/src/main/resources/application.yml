@@ -7,6 +7,8 @@ server:
 spring:
   application:
     name: authorization-server
+  thymeleaf:
+    cache: false
 #
 # 日志 配置
 #

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Authorized</title>
+</head>
+<body>
+<a th:href="@{/authorize}">请求设备授权登录</a>
+<div>
+    <label for="payloadDecode">name</label>
+    <textarea id="payloadDecode" th:text="${payloadDecode}" disabled rows="3" style="width: 500px"></textarea>
+</div>
+
+<div>
+    <label for="accessToken">accessToken</label>
+    <textarea id="accessToken" th:text="${accessToken}" disabled rows="3" style="width: 500px"></textarea>
+</div>
+
+<div>
+    <label for="refreshToken">refreshToken</label>
+    <textarea id="refreshToken" th:text="${refreshToken}" disabled rows="3" style="width: 500px"></textarea>
+</div>
+
+<div>
+    <label for="scope">scope</label>
+    <textarea id="scope" th:text="${scope}" disabled rows="3" style="width: 500px"></textarea>
+</div>
+
+<div>
+    <label for="tokenType">tokenType</label>
+    <textarea id="tokenType" th:text="${tokenType}" disabled rows="3" style="width: 500px"></textarea>
+</div>
+
+<div>
+    <label for="expiresIn">expiresIn</label>
+    <textarea id="expiresIn" th:text="${expiresIn}" disabled rows="3" style="width: 500px"></textarea>
+</div>
+
+</body>
+</html>
