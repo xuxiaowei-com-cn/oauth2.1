@@ -31,7 +31,7 @@
 
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
         <dependency>
-            <groupId>org.springframework.security</groupId>
+            <groupId>io.xuxiaowei.security</groupId>
             <artifactId>spring-security-oauth2-authorization-server</artifactId>
         </dependency>
 

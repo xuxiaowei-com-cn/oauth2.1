@@ -15,13 +15,14 @@
  */
 package cn.com.xuxiaowei.authorizationserver.controller;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -37,7 +38,11 @@ public class DeviceErrorController implements ErrorController {
         if (message.startsWith("[access_denied]")) {
             return new ModelAndView("access-denied");
         }
-        return new ModelAndView("error", Map.of("message", message));
+
+        HashMap<String, String> map = new HashMap<>(4);
+        map.put("message", message);
+
+        return new ModelAndView("error", map);
     }
 
     private String getErrorMessage(HttpServletRequest request) {

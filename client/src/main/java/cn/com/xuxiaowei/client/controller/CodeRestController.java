@@ -1,15 +1,13 @@
 package cn.com.xuxiaowei.client.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,7 +54,7 @@ public class CodeRestController {
 
         ResponseEntity<Map> responseEntity = restTemplate.postForEntity(accessTokenUri, httpEntity, Map.class, param);
 
-        HttpStatusCode statusCode = responseEntity.getStatusCode();
+        HttpStatus statusCode = responseEntity.getStatusCode();
         log.info(String.valueOf(statusCode));
 
         Map body = responseEntity.getBody();

@@ -3,7 +3,6 @@ package cn.com.xuxiaowei.client.controller;
 import cn.hutool.core.codec.Base64;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpSession;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpSession;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
@@ -136,7 +136,8 @@ public class AuthorizeController {
 
         } catch (Exception e) {
             log.info("轮训授权结果：", e);
-            if (e instanceof HttpClientErrorException.BadRequest badRequest) {
+            if (e instanceof HttpClientErrorException.BadRequest) {
+                HttpClientErrorException.BadRequest badRequest = (HttpClientErrorException.BadRequest) e;
                 String responseBodyAsString = badRequest.getResponseBodyAsString();
 
                 responseParameters = objectMapper.readValue(responseBodyAsString, new TypeReference<Map<String, Object>>() {
