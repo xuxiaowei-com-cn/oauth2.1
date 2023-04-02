@@ -32,6 +32,7 @@
         <!-- https://repo.spring.io/ui/native/milestone/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
+        <!-- https://s01.oss.sonatype.org/content/repositories/public/io/xuxiaowei/security/spring-security-oauth2-authorization-server/ -->
         <!-- https://github.com/spring-projects/spring-authorization-server -->
         <spring-security-oauth2-authorization-server.version>1.1.0-M2-jdk8-0.0.1-SNAPSHOT</spring-security-oauth2-authorization-server.version>
 
@@ -67,7 +68,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
+            <!-- https://s01.oss.sonatype.org/content/repositories/public/io/xuxiaowei/security/spring-security-oauth2-authorization-server/ -->
             <dependency>
                 <groupId>io.xuxiaowei.security</groupId>
                 <artifactId>spring-security-oauth2-authorization-server</artifactId>
