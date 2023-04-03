@@ -17,10 +17,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
+import org.springframework.security.oauth2.server.authorization.InMemoryOAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
+import org.springframework.security.oauth2.server.authorization.authentication.ClientSecretAuthenticationProvider;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -50,9 +54,22 @@ public class AuthorizationServerConfiguration {
      */
     @Bean
     @Order(1)
-    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http,
+                                                                      RegisteredClientRepository registeredClientRepository,
+                                                                      OAuth2AuthorizationService authorizationService) throws Exception {
 
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+
+        OAuth2AuthorizationServerConfigurer configurer = http.getConfigurer(OAuth2AuthorizationServerConfigurer.class);
+
+        ClientPasswordEncoder passwordEncoder = new ClientPasswordEncoder();
+
+        configurer.clientAuthentication(clientAuthenticationCustomizer -> {
+            ClientSecretAuthenticationProvider clientSecretAuthenticationProvider =
+                    new ClientSecretAuthenticationProvider(registeredClientRepository, authorizationService);
+            clientSecretAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+            clientAuthenticationCustomizer.authenticationProvider(clientSecretAuthenticationProvider);
+        });
 
         // 未从授权端点进行身份验证时重定向到登录页面
         http.exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")));
@@ -129,6 +146,11 @@ public class AuthorizationServerConfiguration {
         RegisteredClient builder2Client = builder2.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build()).build();
 
         return new InMemoryRegisteredClientRepository(builder1Client, builder2Client);
+    }
+
+    @Bean
+    public OAuth2AuthorizationService auth2AuthorizationService() {
+        return new InMemoryOAuth2AuthorizationService();
     }
 
     /**
