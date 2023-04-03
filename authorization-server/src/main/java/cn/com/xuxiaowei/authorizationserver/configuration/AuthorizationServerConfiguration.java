@@ -25,6 +25,8 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
+import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -113,7 +115,9 @@ public class AuthorizationServerConfiguration {
         builder1.redirectUri("http://127.0.0.1:1401/code");
         // 授权范围
         builder1.scope("snsapi_base");
-        RegisteredClient builder1Client = builder1.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build()).build();
+        builder1.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build());
+        builder1.tokenSettings(TokenSettings.builder().accessTokenFormat(OAuth2TokenFormat.REFERENCE).build());
+        RegisteredClient builder1Client = builder1.build();
 
         RegisteredClient.Builder builder2 = RegisteredClient.withId(UUID.randomUUID().toString());
         // 客户ID
