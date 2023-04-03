@@ -51,6 +51,9 @@ public class AuthenticationManagerResolverConfiguration implements Authenticatio
             @Override
             public Authentication authenticate(Authentication authentication) throws AuthenticationException {
                 BearerTokenAuthenticationToken bearer = (BearerTokenAuthenticationToken) authentication;
+
+                // 此处需要查询数据库中的数据，自行构建 Authentication
+
                 Jwt jwt = nimbusJwtDecoder.decode(bearer.getToken());
                 AbstractAuthenticationToken token = jwtAuthenticationConverter.convert(jwt);
                 token.setDetails(bearer.getDetails());
