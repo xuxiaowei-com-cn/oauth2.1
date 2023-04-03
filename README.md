@@ -2,7 +2,8 @@
 
 ## 相关项目
 
-- 本项目为 OAuth 2.1 协议，OAuth 2 协议参见 [spring-boot-oauth2-jwt](https://gitee.com/xuxiaowei-com-cn/spring-boot-oauth2-jwt.git)
+- 本项目为 OAuth 2.1 协议，OAuth 2
+  协议参见 [spring-boot-oauth2-jwt](https://gitee.com/xuxiaowei-com-cn/spring-boot-oauth2-jwt.git)
 
 ## OAuth 2.1 授权框架
 
@@ -65,3 +66,24 @@
     - 使用 withPublicKey 的 resource
 - consentPage
     - 自定义授权页面
+- reference
+    - 需要自定义授权
+- PasswordEncoder
+    - 用户、客户使用不同的密码比较
+- device_code
+    - 设备授权
+- device_code-jdk8
+    - 设备授权
+    - 基于 JDK 8、Spring Boot 2.7
+    - 个人迁移了 org.springframework.security:spring-security-oauth2-authorization-server 依赖
+- jwt-bearer
+    - 未完成
+- client_secret_jwt
+    - 客户认证时使用 client_secret 签名后的秘钥作为凭证，即：urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+- jdk17-spring-authorization-server-1.0.0
+- jdk17
+- jwt
+- jdk8
+- oauth2
+- ERROR_1
+    - 错误分支，不需要关注
