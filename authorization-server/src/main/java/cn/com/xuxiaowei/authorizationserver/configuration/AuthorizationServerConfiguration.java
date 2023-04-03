@@ -28,6 +28,7 @@ import org.springframework.security.oauth2.server.authorization.settings.ClientS
 import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.oauth2.server.authorization.token.JwtGenerator;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2AccessTokenGenerator;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -45,6 +46,7 @@ import java.util.UUID;
  * @see <a href="http://127.0.0.1:1301/.well-known/oauth-authorization-server">OAuth 2.0 授权服务器元数据请求的默认端点URI</a>
  * @since 0.0.1
  * @see JwtGenerator
+ * @see OAuth2AccessTokenGenerator
  */
 @Slf4j
 @Configuration
@@ -118,7 +120,7 @@ public class AuthorizationServerConfiguration {
         // 授权范围
         builder1.scope("snsapi_base");
         builder1.clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build());
-        builder1.tokenSettings(TokenSettings.builder().accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED).build());
+        builder1.tokenSettings(TokenSettings.builder().accessTokenFormat(OAuth2TokenFormat.REFERENCE).build());
         RegisteredClient builder1Client = builder1.build();
 
         RegisteredClient.Builder builder2 = RegisteredClient.withId(UUID.randomUUID().toString());

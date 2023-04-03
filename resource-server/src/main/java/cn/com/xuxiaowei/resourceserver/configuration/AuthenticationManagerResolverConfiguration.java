@@ -46,7 +46,7 @@ public class AuthenticationManagerResolverConfiguration implements Authenticatio
 
         return new AuthenticationManager() {
 
-            private Converter<Jwt, ? extends AbstractAuthenticationToken> jwtAuthenticationConverter = new JwtAuthenticationConverter();
+            private final Converter<Jwt, ? extends AbstractAuthenticationToken> jwtAuthenticationConverter = new JwtAuthenticationConverter();
 
             @Override
             public Authentication authenticate(Authentication authentication) throws AuthenticationException {
