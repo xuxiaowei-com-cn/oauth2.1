@@ -34,7 +34,7 @@
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://s01.oss.sonatype.org/content/repositories/public/io/xuxiaowei/security/spring-security-oauth2-authorization-server/ -->
         <!-- https://github.com/spring-projects/spring-authorization-server -->
-        <spring-security-oauth2-authorization-server.version>1.1.0-M2-jdk8-0.0.1-SNAPSHOT</spring-security-oauth2-authorization-server.version>
+        <spring-security-oauth2-authorization-server.version>1.1.0-RC1-jdk8-0.0.1-SNAPSHOT</spring-security-oauth2-authorization-server.version>
 
         <!-- SQL 性能分析 -->
         <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
@@ -154,5 +154,32 @@
         </plugins>
 
     </build>
+
+    <repositories>
+
+        <!-- 如果使用浏览器访问时，需要添加 groupId 才显示内容 -->
+        <repository>
+            <id>oss-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>oss-s01-snapshots</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
 
 </project>
