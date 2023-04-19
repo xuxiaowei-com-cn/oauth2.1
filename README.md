@@ -27,6 +27,15 @@
 - [草案 v2-1-05](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-05)
     - 开始时间：2022年3月7日
     - 过期时间：2022年9月8日
+- [草案 v2-1-06](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-06)
+    - 开始时间：2022年7月24日
+    - 过期时间：2023年1月25日
+- [草案 v2-1-07](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-07)
+    - 开始时间：2022年10月24日
+    - 过期时间：2023年4月27日
+- [草案 v2-1-08](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-08)
+    - 开始时间：2023年3月13日
+    - 过期时间：2023年9月14日
 
 ## [GitHub](https://github.com/spring-projects/spring-authorization-server)
 
