@@ -72,6 +72,7 @@
     - 用户、客户使用不同的密码比较
 - device_code
     - 设备授权
+    - 基于 JDK 17、Spring Boot 3.0
 - device_code-jdk8
     - 设备授权
     - 基于 JDK 8、Spring Boot 2.7
