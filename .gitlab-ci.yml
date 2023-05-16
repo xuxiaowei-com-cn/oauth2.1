@@ -13,7 +13,3 @@ package:
     key: "${CI_JOB_NAME}"
     paths:
       - .m2/repository
-      - passport-ui/node/
-      - passport-ui/node_modules/
-      - ui/node/
-      - ui/node_modules/
