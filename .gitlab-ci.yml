@@ -10,6 +10,7 @@ package:
   script:
     - mvn clean -e -U package
   cache:
+    key: "${CI_JOB_NAME}"
     paths:
       - .m2/repository
       - passport-ui/node/
