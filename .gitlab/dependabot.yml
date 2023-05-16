@@ -4,3 +4,7 @@ updates:
     directory: /
     schedule:
       interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
