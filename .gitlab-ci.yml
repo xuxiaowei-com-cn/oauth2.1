@@ -13,3 +13,6 @@ package:
     key: "${CI_JOB_NAME}"
     paths:
       - .m2/repository
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+    - if: $CI_COMMIT_BRANCH == "main"
