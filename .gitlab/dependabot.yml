@@ -2,9 +2,12 @@ version: 2
 updates:
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "main"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -14,9 +17,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "PasswordEncoder"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -26,9 +32,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "RSA-key"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -38,9 +47,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "WebClient"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -50,9 +62,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "client_secret_jwt"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -62,9 +77,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "consentPage"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -74,9 +92,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "device_code-jdk8"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -86,9 +107,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "jdk8"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -98,9 +122,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "jwt"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -110,9 +137,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "jwt-bearer"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -122,9 +152,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "key-store"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -134,9 +167,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "mysql"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -146,9 +182,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "mysql_jdbc_store"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -158,9 +197,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "reference"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -170,9 +212,12 @@ updates:
           - ">= 1"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "resource_withPublicKey"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
     ignore:
       - dependency-name: org.springframework.boot:spring-boot-dependencies
         versions:
@@ -183,16 +228,25 @@ updates:
 
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "device_code"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "jdk17"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
   - package-ecosystem: maven
     directory: /
+    auto-merge: true
     target-branch: "jdk17-spring-authorization-server-1.0.0"
     schedule:
       interval: daily
+      time: "08:00"
+      timezone: "Asia/Shanghai"
