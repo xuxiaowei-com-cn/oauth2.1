@@ -46,3 +46,6 @@ package-jdk-17:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "device_code" || $CI_COMMIT_BRANCH == "device_code"
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "jdk17" || $CI_COMMIT_BRANCH == "jdk17"
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "jdk17-spring-authorization-server-1.0.0" || $CI_COMMIT_BRANCH == "jdk17-spring-authorization-server-1.0.0"
+
+include:
+  remote: https://jihulab.com/xuxiaowei-com-cn/oauth2.1/-/raw/main/sync.yml
