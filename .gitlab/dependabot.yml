@@ -2,6 +2,7 @@ version: 2
 updates:
   - package-ecosystem: maven
     directory: /
+    target-branch: "main"
     schedule:
       interval: daily
     ignore:
@@ -11,3 +12,187 @@ updates:
       - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
         versions:
           - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "PasswordEncoder"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "RSA-key"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "WebClient"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "client_secret_jwt"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "consentPage"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "device_code-jdk8"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "jdk8"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "jwt"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "jwt-bearer"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "key-store"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "mysql"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "mysql_jdbc_store"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "reference"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "resource_withPublicKey"
+    schedule:
+      interval: daily
+    ignore:
+      - dependency-name: org.springframework.boot:spring-boot-dependencies
+        versions:
+          - ">= 3"
+      - dependency-name: org.springframework.security:spring-security-oauth2-authorization-server
+        versions:
+          - ">= 1"
+
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "device_code"
+    schedule:
+      interval: daily
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "jdk17"
+    schedule:
+      interval: daily
+  - package-ecosystem: maven
+    directory: /
+    target-branch: "jdk17-spring-authorization-server-1.0.0"
+    schedule:
+      interval: daily
