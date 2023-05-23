@@ -1,5 +1,6 @@
 stages:
   - package
+  - sync
 
 package-jdk-8:
   variables:
