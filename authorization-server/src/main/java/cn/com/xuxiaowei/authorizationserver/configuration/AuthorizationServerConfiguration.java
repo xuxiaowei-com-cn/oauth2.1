@@ -21,6 +21,7 @@ import org.springframework.security.oauth2.server.authorization.client.InMemoryR
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -53,6 +54,11 @@ public class AuthorizationServerConfiguration {
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
 
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
+
+        OAuth2AuthorizationServerConfigurer configurer = http.getConfigurer(OAuth2AuthorizationServerConfigurer.class);
+
+        // 开启 http://localhost:1301/.well-known/openid-configuration
+        configurer.oidc(Customizer.withDefaults());
 
         // 未从授权端点进行身份验证时重定向到登录页面
         http.exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")));
