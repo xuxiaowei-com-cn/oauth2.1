@@ -33,7 +33,7 @@
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-authorization-server -->
         <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/security/spring-security-oauth2-authorization-server -->
         <!-- https://github.com/spring-projects/spring-authorization-server -->
-        <spring-security-oauth2-authorization-server.version>0.4.0</spring-security-oauth2-authorization-server.version>
+        <spring-security-oauth2-authorization-server.version>0.4.2</spring-security-oauth2-authorization-server.version>
 
         <!-- SQL 性能分析 -->
         <!-- https://mvnrepository.com/artifact/p6spy/p6spy -->
@@ -96,7 +96,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
+                <version>3.11.0</version>
             </plugin>
 
             <!-- mvn clean source:jar deploy -->
@@ -104,7 +104,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.3.0</version>
             </plugin>
 
             <!-- mvn lombok:delombok -->
@@ -113,7 +113,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>3.5.0</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                     <charset>UTF-8</charset>
