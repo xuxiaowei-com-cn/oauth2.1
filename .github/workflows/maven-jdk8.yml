@@ -112,6 +112,9 @@ jobs:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - run: git status
+      - run: echo $GITHUB_BASE_REF
+
       # 将 $GITHUB_BASE_REF 分支代码同步到 极狐GitLab
       - name: Sync JihuLab
         run: |
@@ -124,8 +127,10 @@ jobs:
           eval $(ssh-agent -s) && ssh-add ~/.ssh/id_rsa
           # 信任域名
           ssh-keyscan -H jihulab.com >> ~/.ssh/known_hosts
-          git status
+          # 切换 main 分支
+          git checkout $GITHUB_BASE_REF
           # 拉取 $GITHUB_BASE_REF 分支
+          echo 当前分支：$GITHUB_BASE_REF
           git pull origin $GITHUB_BASE_REF
           # 查看远端 极狐GitLab
           echo git@jihulab.com:$GITHUB_REPOSITORY.git
