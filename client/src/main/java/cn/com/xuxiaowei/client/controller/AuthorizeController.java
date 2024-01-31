@@ -11,6 +11,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +21,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,23 +100,25 @@ public class AuthorizeController {
     @PostMapping("/authorize")
     public Map<String, Object> authorize(HttpSession session, @RequestParam("device_code") String deviceCode) {
 
-        String accessTokenUri = BASE_URL + "/oauth2/token?grant_type=urn:ietf:params:oauth:grant-type:device_code&device_code={device_code}";
+        String accessTokenUri = BASE_URL + "/oauth2/token";
 
-        Map<String, String> param = new HashMap<>(4);
-        param.put("device_code", deviceCode);
+        MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
+        requestBody.put("device_code", Collections.singletonList(deviceCode));
+        requestBody.put("grant_type", Collections.singletonList("urn:ietf:params:oauth:grant-type:device_code"));
+        requestBody.put("client_id", Collections.singletonList(CLIENT_ID));
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+        httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         httpHeaders.setBasicAuth(CLIENT_ID, CLIENT_SECRET);
 
-        HttpEntity<?> httpEntity = new HttpEntity<>(httpHeaders);
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(requestBody, httpHeaders);
 
         ObjectMapper objectMapper = new ObjectMapper();
 
         Map<String, Object> responseParameters = new HashMap<>();
         try {
-            responseParameters = restTemplate.postForObject(accessTokenUri, httpEntity, Map.class, param);
+            responseParameters = restTemplate.postForObject(accessTokenUri, httpEntity, Map.class);
 
             String accessToken = responseParameters.get("access_token").toString();
             Object refreshToken = responseParameters.get("refresh_token");
