@@ -27,7 +27,7 @@
         <!-- https://repo.spring.io/ui/native/milestone/org/springframework/boot/spring-boot-starter-parent -->
         <!-- https://repo.spring.io/ui/native/milestone/org/springframework/boot/spring-boot-dependencies -->
         <!-- https://github.com/spring-projects/spring-boot -->
-        <spring-boot.version>2.7.18</spring-boot.version>
+        <spring-boot.version>3.3.1</spring-boot.version>
 
         <!-- https://github.com/spring-projects/spring-authorization-server -->
         <!-- https://repo.spring.io/ui/native/milestone/org/springframework/security/spring-security-oauth2-authorization-server -->
